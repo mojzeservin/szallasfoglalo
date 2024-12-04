@@ -1,0 +1,57 @@
+###
+
+GET http://localhost:3000/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Ildhcm5lciBTdHVybmV5IiwiZW1haWwiOiJ3c3R1cm5leTBAcXVhbnRjYXN0LmNvbSIsInBhc3N3ZCI6IjVlYTM0NWFiMzMwY2YyOWY4MWQ4ZGU5YmY1NDY2ZjUwOGZlMzUxZTEiLCJjaXR5IjoiSGVsc2luZ2JvcmciLCJjcmVhdGVkQXQiOiIxOTc2LTA4LTMxVDIzOjAwOjAwLjAwMFoiLCJpYXQiOjE3MzI1MjkyNjUsImV4cCI6MTczMjYxNTY2NX0.inb_m79Wu8T7SDX4YsaxIj9h63vivWdrJ1Fiq2hYX0c
+
+###
+
+GET http://localhost:3000/books/genre/lk/child
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbGFAZ21haWwuY29tIiwicGFzc3dkIjoiVGl0a29zamVsc3pvMTIzIiwiaWF0IjoxNzMyMTAwMjEzLCJleHAiOjE3MzIxODY2MTN9.WGidMI1t_zhfb5URrx4pfL7gH3XEwiDN9tsqJRYBrTE
+
+###
+
+DELETE  http://localhost:3000/aaa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbGFAZ21haWwuY29tIiwicGFzc3dkIjoiVGl0a29zamVsc3pvMTIzIiwiaWF0IjoxNzMyMTAwMjEzLCJleHAiOjE3MzIxODY2MTN9.WGidMI1t_zhfb5URrx4pfL7gH3XEwiDN9tsqJRYBrTE
+
+###
+
+DELETE http://localhost:3000/aaa/ID/eq/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbGFAZ21haWwuY29tIiwicGFzc3dkIjoiVGl0a29zamVsc3pvMTIzIiwiaWF0IjoxNzMyMTAwMjEzLCJleHAiOjE3MzIxODY2MTN9.WGidMI1t_zhfb5URrx4pfL7gH3XEwiDN9tsqJRYBrTE
+
+###
+
+POST http://localhost:3000/books
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbGFAZ21haWwuY29tIiwicGFzc3dkIjoiVGl0a29zamVsc3pvMTIzIiwiaWF0IjoxNzMyMTAwMjEzLCJleHAiOjE3MzIxODY2MTN9.WGidMI1t_zhfb5URrx4pfL7gH3XEwiDN9tsqJRYBrTE
+
+{
+    "title": "Webfejlesztés 2",
+    "author": "Józsi",
+    "genre": "Tankönyv",
+    "price": 19990,
+    "publishedYear": 2023
+}
+
+###
+
+PATCH http://localhost:3000/books/id/eq/502
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJlbGFAZ21haWwuY29tIiwicGFzc3dkIjoiVGl0a29zamVsc3pvMTIzIiwiaWF0IjoxNzMyMTAwMjEzLCJleHAiOjE3MzIxODY2MTN9.WGidMI1t_zhfb5URrx4pfL7gH3XEwiDN9tsqJRYBrTE
+
+{
+    "author": "Józsibá",
+    "price": 15990,
+    "publishedYear": 2023
+}
+
+###
+
+POST http://localhost:3000/login/customers
+Content-Type: application/json
+
+{
+    "email": "wsturney0@quantcast.com",
+    "passwd": "Ab123456"
+}
+
+###

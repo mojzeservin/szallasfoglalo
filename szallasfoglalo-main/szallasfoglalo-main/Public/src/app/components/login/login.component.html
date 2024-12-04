@@ -1,0 +1,17 @@
+<div class="col-md-8 col-lg-6 col-xl-4 offset-md-2 offset-lg-3 offset-xl-4">
+  <h3 class="mt-4 mb-4">Belépés</h3>
+
+  <div class="form-floating mb-3">
+    <input type="email" class="form-control" id="email" placeholder="" [(ngModel)]="user.email" [ngClass]="{'is-invalid': isInvalid('email')}">
+    <label for="email">E-mail cím</label>
+  </div>
+
+  <div class="form-floating mb-3">
+    <input type="password" class="form-control" id="passwd" placeholder="" [(ngModel)]="user.passwd" [ngClass]="{'is-invalid': isInvalid('passwd')}">
+    <label for="passwd">Jelszó</label>
+  </div>
+  <div class="mb-3">
+    <a routerLink="/lostpass" class="link">Elfelejtettem a jelszavamat...</a>
+  </div>
+  <button class="btn btn-primary mb-3" (click)="login()">Belépés</button>
+</div>

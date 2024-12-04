@@ -1,0 +1,13 @@
+<div class="container">
+
+  <app-header [title]="appName"></app-header>
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+  <app-footer [company]="company" [author]="author"></app-footer>
+  <app-alert></app-alert>
+
+  <button (click)="toggleTheme()" class="btn themeSwitchBtn">
+    <i [class]="theme === 'dark' ?  'bi bi-sun-fill' : 'bi bi-moon-stars-fill'"></i>
+  </button>
+
+</div>

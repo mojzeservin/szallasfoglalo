@@ -1,0 +1,55 @@
+<div class="m-3">
+  <h3>Szállás információ</h3>
+
+
+  <div class="row mb-3">
+    <div class="col-lg-6">
+      <h5 class="text-center m-3">Adatok</h5>
+      <div class="card mb-4">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{room.title}}</h5>
+          <p class="card-text">{{room.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{room.address}}</li>
+          <li class="list-group-item">{{room.email}}, {{room.phone}}</li>
+          <li class="list-group-item"><app-ratings [ratings]="room.rating"></app-ratings></li>
+          <li class="list-group-item"><h5 class="text-info">{{room.price}} Ft/fő/éj</h5> </li>
+        </ul>
+        <div class="card-body">
+          <h6>Szállásfoglalás:</h6>
+          <div class="row">
+            <div class="form-floating mb-3 col-6">
+              <input type="date" class="form-control" id="start" placeholder="">
+              <label for="start" class="ms-2">Foglalás kezete:</label>
+            </div>
+
+            <div class="form-floating mb-3 col-6">
+              <input type="date" class="form-control" id="end" placeholder="">
+              <label for="end" class="ms-2">Foglalás vége:</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-floating mb-3 col-6">
+              <input type="number" class="form-control" id="fo" placeholder="">
+              <label for="fo" class="ms-2">Személyek száma:</label>
+            </div>
+            <div class="form-floating mb-3 col-6">
+              <input type="text" class="form-control" id="fo" placeholder="" disabled>
+              <label for="fo" class="ms-2">Végösszeg:</label>
+            </div>
+          </div>
+          <a routerLink="/rooms/{{room.id}}" class="btn btn-primary">Foglalok</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <h5 class="text-center m-3">Foglaltság</h5>
+      <full-calendar [options]="calendarOptions"></full-calendar>
+    </div>
+  </div>
+
+
+  <a routerLink="/rooms" class="btn btn-primary">Vissza a szállásokhoz...</a>
+</div>

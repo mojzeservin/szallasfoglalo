@@ -1,0 +1,27 @@
+<div>
+  <h3 class="mt-4 mb-4">Szállások listája</h3>
+
+  <div class="row">
+    <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let room of rooms">
+      <div class="card mb-4">
+        <img src="..." class="card-img-top" alt="[ nincs kép ]">
+        <div class="card-body">
+          <h5 class="card-title">{{room.title}}</h5>
+          <p class="card-text">{{room.description}}</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item text-center">{{room.address}}</li>
+          <li class="list-group-item text-center">{{room.email}}, {{room.phone}}</li>
+          <li class="list-group-item text-center"><app-ratings [ratings]="room.rating"></app-ratings></li>
+          <li class="list-group-item text-center"><h5 class="text-info">{{room.price}} Ft/fő/éj</h5> </li>
+        </ul>
+        <div class="card-body text-center">
+
+          <a routerLink="/rooms/{{room.id}}" class="btn btn-primary">Részletek</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
