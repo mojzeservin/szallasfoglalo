@@ -43,8 +43,8 @@ export class ApiService {
 
   // token-el védett metódusok:
 
-  select(table: string, id:string){
-    return this.http.get(this.server + '/'+table+'/id/eq/'+id, this.tokenHeader());
+  select(table: string, field:string, op: string, value: string){
+    return this.http.get(this.server + '/'+table+'/'+field+'/'+op+'/'+value, this.tokenHeader());
   }
 
   selectAll(table: string){

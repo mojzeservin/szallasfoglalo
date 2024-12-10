@@ -55,7 +55,7 @@ app.post('/login/:table', (req, res)=>{
         return;
     }
 
-    pool.query(`SELECT * FROM ${table} WHERE email=? AND passwd=?`, [email, CryptoJS.SHA1(passwd).toString()], (err, results)=>{
+    pool.query(`SELECT id, name, email, role FROM ${table} WHERE email=? AND passwd=?`, [email, CryptoJS.SHA1(passwd).toString()], (err, results)=>{
         if (err){
             res.status(500).send({message: 'Hiba történt az adatbázis lekérdezés közben! ' + err});
             return;

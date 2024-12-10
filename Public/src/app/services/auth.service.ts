@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, retry } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,29 @@ export class AuthService {
   logout(){
     localStorage.removeItem(environment.tokenName);
     this.isLoggedIn.next(false);
+  }
+
+  loggedUser(){
+    const token = localStorage.getItem(this.tokenName);
+    if (token){
+      const payload = token.split('.')[1];
+      const decodedPayload = atob(payload);
+      const decodedUTF8Payload = new TextDecoder('utf-8').decode(
+        new Uint8Array(decodedPayload.split('').map(char => char.charCodeAt(0)))
+      );
+      return JSON.parse(decodedUTF8Payload);
+    }
+    return null;
+  }
+
+
+  isLoggedUser():boolean{
+    return this.isLoggedIn.value;
+  }
+
+  isAdmin():boolean{
+    const user = this.loggedUser();
+    return user.role === 'admin';
   }
 
 }

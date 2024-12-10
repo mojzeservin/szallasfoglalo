@@ -6,20 +6,15 @@ import { AuthService } from "../services/auth.service";
   providedIn: 'root'
 })
 
-export class UserAuthguard implements CanActivate{
+export class UserAuthGuard implements CanActivate {
 
-  constructor(
-    private auth: AuthService,
-    private router: Router 
-  ) {}
+  constructor(private auth: AuthService, private router: Router){}
 
   canActivate(): boolean {
     const isLoggedIn = this.auth.isLoggedUser();
-
-    if (!isLoggedIn) {
+    if (!isLoggedIn){
       this.router.navigate(['/']);
     }
-
     return true;
   }
 
