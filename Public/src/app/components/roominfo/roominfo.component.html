@@ -22,26 +22,26 @@
           <div *ngIf="isLoggedIn">
             <div class="row">
               <div class="form-floating mb-3 col-6">
-                <input type="date" class="form-control" id="start" placeholder="">
+                <input type="date" class="form-control" id="start" placeholder="" [(ngModel)]="booking.startDate" (change)="calculatePrice()">
                 <label for="start" class="ms-2">Foglalás kezete:</label>
               </div>
 
               <div class="form-floating mb-3 col-6">
-                <input type="date" class="form-control" id="end" placeholder="">
+                <input type="date" class="form-control" id="end" placeholder="" [(ngModel)]="booking.endDate" (change)="calculatePrice()">
                 <label for="end" class="ms-2">Foglalás vége:</label>
               </div>
             </div>
             <div class="row">
               <div class="form-floating mb-3 col-6">
-                <input type="number" class="form-control" id="fo" placeholder="">
+                <input type="number" class="form-control" id="fo" placeholder="" [(ngModel)]="booking.personCount" (change)="calculatePrice()">
                 <label for="fo" class="ms-2">Személyek száma:</label>
               </div>
               <div class="form-floating mb-3 col-6">
-                <input type="text" class="form-control" id="fo" placeholder="" disabled>
+                <input type="text" class="form-control" id="fo" placeholder="" disabled  [(ngModel)]="booking.checkout">
                 <label for="fo" class="ms-2">Végösszeg:</label>
               </div>
             </div>
-            <button class="btn btn-primary">Foglalok</button>
+            <button class="btn btn-primary" (click)="addBooking()">Foglalok</button>
           </div>
           <div *ngIf="!isLoggedIn">
             A szálásfoglaláshoz regisztrálj és jelentkezz be!

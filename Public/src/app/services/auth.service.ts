@@ -42,7 +42,6 @@ export class AuthService {
     return null;
   }
 
-
   isLoggedUser():boolean{
     return this.isLoggedIn.value;
   }

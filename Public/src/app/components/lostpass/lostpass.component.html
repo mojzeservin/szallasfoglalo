@@ -4,9 +4,9 @@
     Add meg a regisztrált e-mail címedet és küldünk egy link-et, amivel visszaállíthatod a hozzáférésed az oldalhoz:
   </p>
   <div class="form-floating mb-3">
-    <input type="email" class="form-control" id="email" placeholder="">
+    <input type="email" class="form-control" id="email" placeholder="" [(ngModel)]="email">
     <label for="email">E-mail cím</label>
   </div>
-  <button class="btn btn-primary mb-3">Küldés</button>
+  <button class="btn btn-primary mb-3" (click)="sendmail()">Küldés</button>
 
 </div>

@@ -55,3 +55,15 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:3000/send
+Content-Type: application/json
+
+{
+    "to": "nagyhaziszabolcs@turr.hu",
+    "subject": "teszt email",
+    "content": {
+        "link": "http://localhost/lostpass/id/secret"
+    },
+    "template": "lostpass"
+}

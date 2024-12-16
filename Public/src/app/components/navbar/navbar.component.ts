@@ -20,7 +20,6 @@ export class NavbarComponent implements OnInit{
 
   ngOnInit(): void {
     this.auth.isLoggedIn$.subscribe(res => {
-    //  console.log('isLoggedIn:', res);
       this.setupMenu(res);
     });
   }
@@ -29,8 +28,16 @@ export class NavbarComponent implements OnInit{
     this.items = [
       { label: "Szállások", url: '/rooms' },
       ...(isLoggedIn) ? [
-        { label: "Foglalásaim", url: '/bookings' },
-        { label: "Kilépés", url: '/logout' }
+        ...(this.auth.isAdmin()) ? [
+          { label: "Szállások kezelése", url: '/admin/rooms' },
+          { label: "Foglalások kezelése", url: '/admin/bookings' },
+          { label: "Felhasználók kezelése", url: '/admin/users' },
+          { label: "Kilépés", url: '/logout' }
+        ] : [
+          { label: "Foglalásaim", url: '/bookings' },
+          { label: "Kilépés", url: '/logout' }
+        ]
+
       ] : [
         { label: "Belépés", url: '/login' },
         { label: "Regisztráció", url: '/registration'}

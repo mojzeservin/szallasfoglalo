@@ -13,6 +13,7 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const multer  = require('multer');
 const nodemailer = require("nodemailer");
+const path = require('path');
 const ejs  = require('ejs');
 const uuid = require('uuid');
 var CryptoJS = require("crypto-js");
@@ -34,7 +35,48 @@ var pool  = mysql.createPool({
     database        : process.env.DBNAME
 });
 
+// NODEMAILER CONFIG
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: true,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+});
+
 // APP ROUTES
+
+// send email
+app.post('/send', (req, res)=>{
+    const {to, subject, content, template} = req.body;
+
+    const templatePath = path.join(__dirname, 'templates', template + '.ejs');
+    
+    ejs.renderFile(templatePath, {content}, async (err, html)=>{
+
+        if (err){
+            return res.send('Error rendering email template!');
+        }
+
+        const mailOptions = {
+            from: '"Szállásfoglaló App" <' + process.env.SMTP_USER + '>',
+            to: to,
+            subject: subject,
+            html: html
+        }
+
+        try {
+            result = await transporter.sendMail(mailOptions);
+            res.send({ message: 'Az e-mail elküldve!' });
+        } catch(error){
+            res.send({ message: error });
+            
+        }
+    });
+ 
+});
 
 // user login
 app.post('/login/:table', (req, res)=>{
@@ -119,7 +161,7 @@ app.post('/reg/:table', (req, res)=>{
             res.status(203).send({ message: 'Ez az e-mail cím már regisztrálva van!', invalid: invalidFields });
             return
         }
-        pool.query(`INSERT INTO ${table} (id, name, email, passwd, role) VALUES('${uuid.v4()}', '${name}', '${email}', SHA1('${passwd}'), 'user')`, (err, results)=>{
+        pool.query(`INSERT INTO ${table} (id, name, email, passwd, role, secret) VALUES('${uuid.v4()}', '${name}', '${email}', SHA1('${passwd}'), 'user', '${uuid.v4()}')`, (err, results)=>{
             if (err){
                 res.status(500).send(err);
                 return
@@ -130,6 +172,7 @@ app.post('/reg/:table', (req, res)=>{
     });
 });
 
+//TODO: a user tábla public-ként használata biztonsági kockázat, valamit ki lehetne találni
 app.get('/public/:table', (req, res)=>{
     let table = req.params.table;
     
@@ -163,6 +206,35 @@ app.get('/public/:table/:field/:op/:value', (req, res)=>{
     }
 
     pool.query(`SELECT * FROM ${table} WHERE ${field}${op}'${value}'`,  (err, results)=>{
+        sendResults(res, err, results);
+    });
+});
+
+//TODO: ezt valahogyan jobban megoldani, hogy biztonságos legyen a jelszó visszaállítás
+app.patch('/public/:table/:field/:op/:value', (req, res)=>{
+    let table = req.params.table;
+
+    const public_tables = process.env.PUBLIC_TABLES.split(',');
+
+    if (!public_tables.includes(table)){
+        sendResults(res, '', {message: 'Nincs jogosultság hozzá!'});
+        return
+    }
+
+    let field = req.params.field;
+    let value = req.params.value;
+    let op = getOP(req.params.op);
+    if (req.params.op == 'lk'){
+        value = `%${value}%`;
+    } 
+    let fields = Object.keys(req.body);
+    let values = Object.values(req.body);
+    let updates = [];
+    for (let i = 0; i < fields.length; i++) {
+        updates.push(`${fields[i]}='${values[i]}'`);
+    }
+    let str = updates.join(',');    
+    pool.query(`UPDATE ${table} SET ${str} WHERE ${field}${op}'${value}'`, (err, results)=>{
         sendResults(res, err, results);
     });
 });
