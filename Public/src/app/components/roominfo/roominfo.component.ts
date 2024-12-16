@@ -91,7 +91,7 @@ export class RoominfoComponent implements OnInit{
       if (res){
 
       let events: any[] = [];
-
+        console.log(res)
       res.forEach((item:any) => {
         events.push({
           title: 'Foglalt',
